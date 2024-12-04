@@ -12,9 +12,9 @@
 }
 
 .neutral {
-    border-color: #a3b8cc;
-    background-color: #F8F9FA;
-    color: #334d66;
+    border-color: #ccb8a3;
+    background-color: #faf9f7;
+    color: #664d33;
 }
 
 .green {
@@ -24,9 +24,9 @@
 }
 
 .red {
-    border-color: #cca7a3;
-    background-color: #fae3e1;
-    color: #663733;
+    border-color: #cca3a3;
+    background-color: #fae1e1;
+    color: #663333;
 }
 
 svg {
