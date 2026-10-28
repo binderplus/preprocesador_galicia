@@ -39,7 +39,7 @@ function processData(data) {
 
 function getReplacementRows(row) {
     // Filtra filas vacías o no imputadas
-    if ((!('Tipo de movimiento' in row) || (row['Tipo de movimiento'] !== 'Imputado'))) return [[]]
+    if ((!('Tipo de movimiento' in row) || (row['Tipo de movimiento'] !== 'Imputado'))) return []
 
     if (!('ID de movimiento' in row)) throw new Error('El extracto debe incluir la columna "ID de movimiento"')
 
