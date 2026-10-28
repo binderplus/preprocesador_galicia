@@ -34,7 +34,7 @@ El flujo cruza varios archivos:
    - Lee solo la **primera hoja**, la convierte a JSON con `sheet_to_json` (las claves son los encabezados de columna del reporte).
    - `getReplacementRows(row)` decide qué hacer con cada fila; devuelve un array de filas de reemplazo. Acá va cualquier regla nueva de filtrado/transformación.
    - Reglas actuales: descarta filas cuyo `Tipo de movimiento` no es `'Imputado'` (vacías o pendientes; filtrar pendientes desde Office Banking pone el saldo en 0, por eso se hace acá). Exige la columna `ID de movimiento` y si falta lanza un error que ve el usuario — el reporte tiene que exportarse con todas las columnas.
-   - Ojo: las filas descartadas devuelven `[[]]` (una fila vacía), no `[]`.
+   - Para descartar una fila, devolver `[]`. Devolver `[[]]` deja una fila en blanco en la salida, porque `json_to_sheet` igual avanza una fila por cada elemento.
    - Reescribe la hoja con `json_to_sheet` (fechas `dd/mm/yyyy`) y genera `<nombre>.procesado.<ext>` con la misma extensión que la entrada.
 
 Los textos de la UI y los mensajes de error están en español.
