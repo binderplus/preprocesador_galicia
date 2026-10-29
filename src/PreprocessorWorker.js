@@ -1,7 +1,4 @@
 import {read, write, utils} from "xlsx";
-import {calcularReferencia} from "./reglasReferencia.js";
-
-const COLUMNA_REFERENCIA = 'Referencia'
 
 self.addEventListener('unhandledrejection', function (event) {
     throw event.reason;
@@ -17,7 +14,7 @@ onmessage = async function (event) {
 
     data = processData(data)
 
-    wb.Sheets[sheet] = utils.json_to_sheet(data, {header: getHeader(data), cellDates: true, dateNF: 'dd"/"mm"/"yyyy'});
+    wb.Sheets[sheet] = utils.json_to_sheet(data, {cellDates: true, dateNF: 'dd"/"mm"/"yyyy'});
     const outFile = new File(
         [write(wb, {bookType: inFileExtension, type: "array", FS: ";"})],
         `${inFileName}.procesado.${inFileExtension}`,
@@ -46,18 +43,7 @@ function getReplacementRows(row) {
 
     if (!('ID de movimiento' in row)) throw new Error('El extracto debe incluir la columna "ID de movimiento"')
 
-    return [{...row, [COLUMNA_REFERENCIA]: calcularReferencia(row)}]
-}
-
-// Mismo orden de columnas que armaría json_to_sheet, pero con «Referencia» siempre presente y al final
-function getHeader(data) {
-    const header = new Set()
-    for (const row of data) {
-        for (const key of Object.keys(row)) {
-            if (key !== COLUMNA_REFERENCIA) header.add(key)
-        }
-    }
-    return [...header, COLUMNA_REFERENCIA]
+    return [row]
 }
 
 function getNameAndExtension(file) {
